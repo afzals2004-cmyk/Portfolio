@@ -9,7 +9,7 @@ const Footer = () => {
                         © {new Date().getFullYear()} Developer Portfolio. All rights reserved.
                     </p>
                     <div className="flex space-x-6 mt-4 md:mt-0">
-                        <a href="#" className="text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors">
+                        <a href="https://github.com/afzals2004-cmyk" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors">
                             <span className="sr-only">GitHub</span>
                             <Github size={20} />
                         </a>

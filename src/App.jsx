@@ -1,5 +1,6 @@
 import { Suspense, lazy, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
 import Loading from './components/Loading';
@@ -14,6 +15,7 @@ const CaseStudy = lazy(() => import('./pages/CaseStudy'));
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   return (
     <>
@@ -22,13 +24,15 @@ function App() {
         <Layout>
           <ScrollToTop />
           <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/work/:id" element={<CaseStudy />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/work" element={<Work />} />
+                <Route path="/work/:id" element={<CaseStudy />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </AnimatePresence>
           </Suspense>
         </Layout>
       )}

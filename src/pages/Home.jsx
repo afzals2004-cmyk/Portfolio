@@ -3,14 +3,21 @@ import { ArrowRight, BarChart2, Database, Terminal, Cpu, Network, Activity, Laye
 import { Link } from 'react-router-dom';
 import StatCard from '../components/StatCard';
 import { projects } from '../data/projects';
-import CyberBackground from '../components/CyberBackground';
+import SEO from '../components/SEO';
 
 const Home = () => {
     return (
-        <div className="relative min-h-screen font-mono text-cyan-50">
-
-            {/* Dynamic Procedural Background */}
-            <CyberBackground />
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative min-h-screen font-mono text-cyan-50"
+        >
+            <SEO
+                title="Home"
+                description="Afzal Shaikh - Data Scientist & Automation Engineer. Transforming raw data into strategic dominance."
+            />
 
             {/* Dark Gradient Overlay for readability */}
             <div className="fixed inset-0 z-0 bg-gradient-to-t from-[#050510] via-transparent to-[#050510]/80 pointer-events-none"></div>
@@ -51,7 +58,7 @@ const Home = () => {
                         {/* Animated Typewriter-style subtext */}
                         <div className="inline-flex items-center gap-2 px-4 py-2 border border-cyan-500/50 bg-cyan-950/40 rounded-sm mb-8 backdrop-blur-md">
                             <Terminal size={14} className="text-cyan-400" />
-                            <span className="text-cyan-300 font-bold tracking-wider text-sm">DATA_SCIENTIST_&_AUTOMATION_ENGINEER</span>
+                            <span className="text-cyan-300 font-bold tracking-wider text-sm">DATA_SCIENTIST_&_WEB_DEVELOPER</span>
                         </div>
 
                         <p className="text-lg text-cyan-100/80 mb-8 leading-relaxed max-w-lg border-l-2 border-cyan-500 pl-4 bg-gradient-to-r from-cyan-900/20 to-transparent p-2">
@@ -87,7 +94,7 @@ const Home = () => {
 
                 {/* Featured Data Nodes */}
                 <div className="relative mt-24">
-                    <div className="absolute -top-10 left-0 flex items-center gap-2 text-cyan-500/50 font-bold text-4xl select-none opacity-20">
+                    <div className="absolute -top-12 left-0 flex items-center gap-2 text-cyan-500 font-bold text-4xl select-none opacity-50 z-0">
                         <Network size={40} /> PROTOCOL://PROJECTS
                     </div>
 
@@ -134,7 +141,7 @@ const Home = () => {
                 </div>
 
             </div>
-        </div>
+        </motion.div>
     );
 };
 

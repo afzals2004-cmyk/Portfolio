@@ -96,19 +96,19 @@ const CyberBackground = () => {
                 particle.update();
                 particle.draw();
 
-                // Draw Connections - Optimized Distance Check
+                // Draw Connections - Optimized Distance Check (No Sqrt)
+                const connectionDistanceSq = connectionDistance * connectionDistance;
+
                 for (let j = index + 1; j < particles.length; j++) {
                     const dx = particle.x - particles[j].x;
                     const dy = particle.y - particles[j].y;
+                    const distSq = dx * dx + dy * dy;
 
-                    // Quick bounding box check before sqrt
-                    if (Math.abs(dx) > connectionDistance || Math.abs(dy) > connectionDistance) continue;
-
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < connectionDistance) {
+                    // Quick bounding box check not needed if we check distSq directly, 
+                    // but keeping logic simple.
+                    if (distSq < connectionDistanceSq) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 243, 255, ${0.15 * (1 - distance / connectionDistance)})`; // Lower alpha
+                        ctx.strokeStyle = `rgba(0, 243, 255, ${0.15 * (1 - distSq / connectionDistanceSq)})`; // Lower alpha
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(particles[j].x, particles[j].y);

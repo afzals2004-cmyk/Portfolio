@@ -1,6 +1,80 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Send, Terminal } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Send, Terminal, Github } from 'lucide-react';
+import SEO from '../components/SEO';
+
+// Memoized static component to prevent re-renders on form input
+const ContactInfo = memo(() => (
+    <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+    >
+        <div className="mb-2 flex items-center gap-2 text-cyan-400">
+            <Terminal size={18} />
+            <span className="text-sm font-bold tracking-widest uppercase">Initializing Comm Link...</span>
+        </div>
+        <h1 className="text-5xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-500 holo-text">
+            ESTABLISH<br />CONNECTION
+        </h1>
+
+        <div className="space-y-8 mt-12">
+            <div className="flex items-start gap-4 group">
+                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
+                    <Mail size={24} />
+                </div>
+                <div>
+                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Electronic Mail</h3>
+                    <a href="mailto:Afzals2004@gmail.com" className="text-xl text-white hover:text-cyan-300 transition-colors">Afzals2004@gmail.com</a>
+                </div>
+            </div>
+
+            <div className="flex items-start gap-4 group">
+                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
+                    <Phone size={24} />
+                </div>
+                <div>
+                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Comms Line</h3>
+                    <p className="text-xl text-white">+91 9967007042</p>
+                </div>
+            </div>
+
+            <div className="flex items-start gap-4 group">
+                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
+                    <Linkedin size={24} />
+                </div>
+                <div>
+                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Professional Network</h3>
+                    <a href="https://linkedin.com/in/afzaldatanalyst" target="_blank" rel="noopener noreferrer" className="text-xl text-white hover:text-cyan-300 transition-colors">
+                        linkedin.com/in/afzaldatanalyst
+                    </a>
+                </div>
+            </div>
+
+            <div className="flex items-start gap-4 group">
+                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
+                    <MapPin size={24} />
+                </div>
+                <div>
+                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Base of Operations</h3>
+                    <p className="text-xl text-white">Mumbai, India 400072</p>
+                </div>
+            </div>
+
+            <div className="flex items-start gap-4 group">
+                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
+                    <Github size={24} />
+                </div>
+                <div>
+                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Code Repository</h3>
+                    <a href="https://github.com/afzals2004-cmyk" target="_blank" rel="noopener noreferrer" className="text-xl text-white hover:text-cyan-300 transition-colors">
+                        github.com/afzals2004-cmyk
+                    </a>
+                </div>
+            </div>
+        </div>
+    </motion.div>
+));
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -41,68 +115,22 @@ const Contact = () => {
     };
 
     return (
-        <div className="min-h-screen pt-32 pb-12 px-6 max-w-7xl mx-auto font-mono text-cyan-50">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="min-h-screen pt-32 pb-12 px-6 max-w-7xl mx-auto font-mono text-cyan-50"
+        >
+            <SEO
+                title="Contact"
+                description="Get in touch with Afzal Shaikh for data science, automation, and web development collaborations."
+            />
 
             <div className="grid lg:grid-cols-2 gap-16">
 
                 {/* Contact Info */}
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <div className="mb-2 flex items-center gap-2 text-cyan-400">
-                        <Terminal size={18} />
-                        <span className="text-sm font-bold tracking-widest uppercase">Initializing Comm Link...</span>
-                    </div>
-                    <h1 className="text-5xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-500 holo-text">
-                        ESTABLISH<br />CONNECTION
-                    </h1>
-
-                    <div className="space-y-8 mt-12">
-                        <div className="flex items-start gap-4 group">
-                            <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                                <Mail size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Electronic Mail</h3>
-                                <a href="mailto:Afzals2004@gmail.com" className="text-xl text-white hover:text-cyan-300 transition-colors">Afzals2004@gmail.com</a>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start gap-4 group">
-                            <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                                <Phone size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Comms Line</h3>
-                                <p className="text-xl text-white">+91 9967007042</p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start gap-4 group">
-                            <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                                <Linkedin size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Professional Network</h3>
-                                <a href="https://linkedin.com/in/afzaldatanalyst" target="_blank" rel="noopener noreferrer" className="text-xl text-white hover:text-cyan-300 transition-colors">
-                                    linkedin.com/in/afzaldatanalyst
-                                </a>
-                            </div>
-                        </div>
-
-                        <div className="flex items-start gap-4 group">
-                            <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                                <MapPin size={24} />
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Base of Operations</h3>
-                                <p className="text-xl text-white">Mumbai, India 400072</p>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
+                <ContactInfo />
 
                 {/* Contact Form (Styled) */}
                 <motion.div
@@ -174,7 +202,7 @@ const Contact = () => {
                 </motion.div>
 
             </div>
-        </div>
+        </motion.div>
     );
 };
 

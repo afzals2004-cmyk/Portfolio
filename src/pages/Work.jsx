@@ -2,10 +2,21 @@ import { motion } from 'framer-motion';
 import ProjectCard from '../components/ProjectCard';
 import { projects } from '../data/projects';
 import { FolderGit2 } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Work = () => {
     return (
-        <div className="min-h-screen pt-28 pb-12 px-6 max-w-7xl mx-auto font-mono text-cyan-50">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="min-h-screen pt-28 pb-12 px-6 max-w-7xl mx-auto font-mono text-cyan-50"
+        >
+            <SEO
+                title="Work"
+                description="Portfolio of projects by Afzal Shaikh. Includes AI bots, data dashboards, and full-stack applications."
+            />
 
             {/* Header - Aligned with About Page */}
             <motion.div
@@ -38,7 +49,7 @@ const Work = () => {
                     </motion.div>
                 ))}
             </div>
-        </div>
+        </motion.div>
     );
 };
 

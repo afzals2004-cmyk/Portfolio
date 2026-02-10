@@ -23,7 +23,13 @@ const CaseStudy = () => {
     }
 
     return (
-        <article className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <motion.article
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
+        >
             <Link to="/work" className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-8 transition-colors">
                 <ArrowLeft size={20} className="mr-2" />
                 Back to Work
@@ -93,7 +99,7 @@ const CaseStudy = () => {
                     </div>
                 )}
             </motion.div>
-        </article>
+        </motion.article>
     );
 };
 

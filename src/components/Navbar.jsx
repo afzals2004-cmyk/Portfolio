@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import Logo from './Logo';
 
-const Navbar = () => {
+const Navbar = memo(() => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
@@ -90,6 +90,6 @@ const Navbar = () => {
             </AnimatePresence>
         </nav>
     );
-};
+});
 
 export default Navbar;

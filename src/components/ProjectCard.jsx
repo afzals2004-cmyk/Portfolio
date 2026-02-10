@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Folder, Code } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const ProjectCard = ({ title, category, description, tags, id }) => {
+const ProjectCard = memo(({ title, category, description, tags, id }) => {
     return (
         <motion.div
             whileHover={{ y: -5, scale: 1.01 }}
@@ -43,6 +44,6 @@ const ProjectCard = ({ title, category, description, tags, id }) => {
             </div>
         </motion.div>
     );
-};
+});
 
 export default ProjectCard;

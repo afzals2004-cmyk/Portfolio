@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 
-const StatCard = ({ label, value, description, icon: Icon, delay }) => {
+const StatCard = memo(({ label, value, description, icon: Icon, delay }) => {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -25,6 +26,6 @@ const StatCard = ({ label, value, description, icon: Icon, delay }) => {
             </div>
         </motion.div>
     );
-};
+});
 
 export default StatCard;
