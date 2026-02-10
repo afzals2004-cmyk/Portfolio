@@ -1,7 +1,45 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Send, Terminal } from 'lucide-react';
 
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState('idle'); // idle, sending, success, error
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('sending');
+
+        try {
+            const response = await fetch('http://localhost:5000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 5000); // Reset status after 5 seconds
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+            setStatus('error');
+        }
+    };
+
     return (
         <div className="min-h-screen pt-32 pb-12 px-6 max-w-7xl mx-auto font-mono text-cyan-50">
 
@@ -77,25 +115,61 @@ const Contact = () => {
                         <Send size={20} className="text-cyan-400" /> SEND_TRANSMISSION
                     </h2>
 
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label className="block text-xs font-bold text-cyan-500 uppercase tracking-widest mb-2">Identify Yourself</label>
-                            <input type="text" className="w-full bg-cyan-950/30 border border-cyan-900 rounded p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all placeholder-cyan-800" placeholder="NAME / ORG" />
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                className="w-full bg-cyan-950/30 border border-cyan-900 rounded p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all placeholder-cyan-800"
+                                placeholder="NAME / ORG"
+                            />
                         </div>
 
                         <div>
                             <label className="block text-xs font-bold text-cyan-500 uppercase tracking-widest mb-2">Return Address</label>
-                            <input type="email" className="w-full bg-cyan-950/30 border border-cyan-900 rounded p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all placeholder-cyan-800" placeholder="EMAIL@DOMAIN.COM" />
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                className="w-full bg-cyan-950/30 border border-cyan-900 rounded p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all placeholder-cyan-800"
+                                placeholder="EMAIL@DOMAIN.COM"
+                            />
                         </div>
 
                         <div>
                             <label className="block text-xs font-bold text-cyan-500 uppercase tracking-widest mb-2">Message Payload</label>
-                            <textarea rows="4" className="w-full bg-cyan-950/30 border border-cyan-900 rounded p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all placeholder-cyan-800" placeholder="ENTER_DATA..."></textarea>
+                            <textarea
+                                rows="4"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                                className="w-full bg-cyan-950/30 border border-cyan-900 rounded p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all placeholder-cyan-800"
+                                placeholder="ENTER_DATA..."
+                            ></textarea>
                         </div>
 
-                        <button className="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-black font-bold tracking-[0.2em] uppercase rounded transition-all shadow-[0_0_15px_rgba(0,243,255,0.4)] hover:shadow-[0_0_25px_rgba(0,243,255,0.6)]">
-                            Transmit
+                        <button
+                            type="submit"
+                            disabled={status === 'sending'}
+                            className={`w-full py-4 font-bold tracking-[0.2em] uppercase rounded transition-all shadow-[0_0_15px_rgba(0,243,255,0.4)] hover:shadow-[0_0_25px_rgba(0,243,255,0.6)] ${status === 'sending' ? 'bg-cyan-800 cursor-not-allowed text-gray-400' : 'bg-cyan-600 hover:bg-cyan-500 text-black'
+                                }`}
+                        >
+                            {status === 'sending' ? 'Transmitting...' : 'Transmit'}
                         </button>
+
+                        {status === 'success' && (
+                            <p className="text-green-400 text-center font-bold mt-4">Transmission Successful. Data Sent.</p>
+                        )}
+                        {status === 'error' && (
+                            <p className="text-red-400 text-center font-bold mt-4">Transmission Failed. Check Signal.</p>
+                        )}
                     </form>
                 </motion.div>
 
