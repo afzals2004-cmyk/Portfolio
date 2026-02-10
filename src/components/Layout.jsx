@@ -3,7 +3,7 @@ import Footer from './Footer';
 
 const Layout = ({ children }) => {
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col font-sans transition-colors duration-300">
+        <div className="min-h-screen relative z-10 flex flex-col font-sans text-gray-100">
             <Navbar />
             <main className="flex-grow pt-16">
                 {children}

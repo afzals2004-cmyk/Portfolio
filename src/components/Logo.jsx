@@ -38,7 +38,7 @@ const Logo = () => {
             {/* Text Logo */}
             <div className="flex flex-col leading-none">
                 <span className="font-bold text-xl tracking-tighter text-white group-hover:text-cyan-300 transition-colors">
-                    AFZAL<span className="text-cyan-500">.AI</span>
+                    AFZAL <span className="text-cyan-500">SHAIKH</span>
                 </span>
                 <span className="text-[0.6rem] font-mono text-cyan-500/80 tracking-[0.2em] group-hover:tracking-[0.3em] transition-all">
                     SYSTEMS

@@ -129,7 +129,7 @@ const CyberBackground = () => {
     return (
         <canvas
             ref={canvasRef}
-            className="fixed inset-0 z-0 bg-[#050510]"
+            className="fixed inset-0 z-[-1] bg-[#050510]"
             style={{ pointerEvents: 'none' }}
         />
     );

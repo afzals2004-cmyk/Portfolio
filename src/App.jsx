@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import ScrollToTop from './components/ScrollToTop';
 import Loading from './components/Loading';
 import SplashScreen from './components/SplashScreen';
+import CyberBackground from './components/CyberBackground';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <>
+      <CyberBackground />
       {loading && <SplashScreen onComplete={() => setLoading(false)} />}
       {!loading && (
         <Layout>
