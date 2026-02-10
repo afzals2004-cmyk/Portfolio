@@ -69,5 +69,6 @@ I am a detail-oriented **Data Analytics & Automation Intern** based in **Mumbai,
 
 ## 📫 Connect with Me
 
+[![Portfolio](https://img.shields.io/badge/Portfolio-050510?style=for-the-badge&logo=react&logoColor=06b6d4)](https://afzal-shaikh-portfolio.vercel.app/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/afzaldatanalyst)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:Afzals2004@gmail.com)
