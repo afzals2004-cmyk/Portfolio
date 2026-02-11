@@ -7,10 +7,11 @@ const StatCard = memo(({ label, value, description, icon: Icon, delay }) => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: delay, duration: 0.4 }}
-            className="holo-card p-6 flex flex-col justify-between hover:bg-cyan-900/20 transition-all group"
+            transition={{ delay: delay, duration: 0.4 }}
+            className="holo-card p-4 sm:p-6 flex flex-col justify-between hover:bg-cyan-900/20 transition-all group"
         >
             <div className="absolute top-0 right-0 p-2 opacity-50">
-                <Icon size={40} className="text-cyan-900 group-hover:text-cyan-500/20 transition-colors" />
+                <Icon size={32} className="text-cyan-900 group-hover:text-cyan-500/20 transition-colors sm:w-10 sm:h-10" />
             </div>
 
             <div className="relative z-10">
