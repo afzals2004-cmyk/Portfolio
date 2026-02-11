@@ -12,7 +12,7 @@ const Home = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative min-h-screen font-mono text-cyan-50"
+            className="relative min-h-screen font-mono text-cyan-50 overflow-hidden"
         >
             <SEO
                 title="Home"
