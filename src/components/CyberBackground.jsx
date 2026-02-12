@@ -16,12 +16,12 @@ const CyberBackground = () => {
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Configuration - Optimized with High Density
+        // Configuration - Optimized for Responsive Layout
+        const isMobile = window.innerWidth < 768;
         const particles = [];
-        const particleCount = 100; // Restored to 100 as requested
-        const connectionDistance = 150;
-        // Reduce matrix column density for performance
-        const fontSize = 20;
+        const particleCount = isMobile ? 60 : 150; // Reduce density on mobile
+        const connectionDistance = isMobile ? 120 : 180; // Shorter connections on mobile
+        const fontSize = isMobile ? 12 : 16;
         const matrixColumns = Math.floor(canvas.width / fontSize);
         const matrixDrops = new Array(matrixColumns).fill(1);
 
@@ -30,22 +30,26 @@ const CyberBackground = () => {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                // Slower movement for smoother feel and less jitter
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
-                this.size = Math.random() * 2 + 1;
+                // slightly faster, more dynamic movement
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
+                this.pulseSpeed = 0.02 + Math.random() * 0.03;
+                this.alpha = Math.random();
             }
 
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
+                this.alpha += this.pulseSpeed;
 
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(0, 243, 255, 0.4)'; // Slightly lower opacity
+                const opacity = Math.abs(Math.sin(this.alpha)) * 0.7 + 0.3; // Pulsing opacity
+                ctx.fillStyle = `rgba(0, 243, 255, ${opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -59,8 +63,9 @@ const CyberBackground = () => {
 
         // Animation Loop
         let lastTime = 0;
-        const fps = 30; // Cap at 30FPS for background to save GPU for UI
+        const fps = 40; // Slightly smoother
         const interval = 1000 / fps;
+        let pulseTime = 0;
 
         const animate = (currentTime) => {
             animationFrameId = requestAnimationFrame(animate);
@@ -69,18 +74,17 @@ const CyberBackground = () => {
             const delta = currentTime - lastTime;
             if (delta < interval) return;
             lastTime = currentTime - (delta % interval);
+            pulseTime += 0.01;
 
-            ctx.fillStyle = 'rgba(5, 5, 16, 0.2)'; // Increased trail fade for less accumulation work
+            ctx.fillStyle = 'rgba(5, 5, 16, 0.25)'; // Clear darker for better contrast
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Matrix Rain Effect (Optimized)
-            ctx.fillStyle = 'rgba(0, 243, 255, 0.03)'; // Very subtle
+            ctx.fillStyle = 'rgba(0, 243, 255, 0.04)';
             ctx.font = `${fontSize}px monospace`;
 
-            // Only update matrix every other frame effectively by index skipping if needed, 
-            // but for now relying on FPS cap.
             for (let i = 0; i < matrixDrops.length; i++) {
-                if (Math.random() > 0.98) continue; // Skip some updates for performance randomness
+                if (Math.random() > 0.985) continue;
 
                 const text = String.fromCharCode(0x30A0 + Math.random() * 96);
                 ctx.fillText(text, i * fontSize, matrixDrops[i] * fontSize);
@@ -96,7 +100,6 @@ const CyberBackground = () => {
                 particle.update();
                 particle.draw();
 
-                // Draw Connections - Optimized Distance Check (No Sqrt)
                 const connectionDistanceSq = connectionDistance * connectionDistance;
 
                 for (let j = index + 1; j < particles.length; j++) {
@@ -104,12 +107,18 @@ const CyberBackground = () => {
                     const dy = particle.y - particles[j].y;
                     const distSq = dx * dx + dy * dy;
 
-                    // Quick bounding box check not needed if we check distSq directly, 
-                    // but keeping logic simple.
                     if (distSq < connectionDistanceSq) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(0, 243, 255, ${0.15 * (1 - distSq / connectionDistanceSq)})`; // Lower alpha
-                        ctx.lineWidth = 0.5;
+                        // Dynamic gradient coloring for lines
+                        const alpha = (1 - distSq / connectionDistanceSq) * 0.2;
+
+                        // Subtle color shift
+                        const gradient = ctx.createLinearGradient(particle.x, particle.y, particles[j].x, particles[j].y);
+                        gradient.addColorStop(0, `rgba(0, 243, 255, ${alpha})`);
+                        gradient.addColorStop(1, `rgba(0, 100, 255, ${alpha})`);
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 0.8;
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();

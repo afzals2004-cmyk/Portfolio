@@ -9,65 +9,66 @@ const ContactInfo = memo(() => (
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
+        className="mb-12 lg:mb-0"
     >
         <div className="mb-2 flex items-center gap-2 text-cyan-400">
             <Terminal size={18} />
-            <span className="text-sm font-bold tracking-widest uppercase">Initializing Comm Link...</span>
+            <span className="text-xs md:text-sm font-bold tracking-widest uppercase">Initializing Comm Link...</span>
         </div>
-        <h1 className="text-5xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-500 holo-text">
+        <h1 className="text-4xl md:text-5xl font-black mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-500 holo-text leading-tight">
             ESTABLISH<br />CONNECTION
         </h1>
 
-        <div className="space-y-8 mt-12">
+        <div className="space-y-6 md:space-y-8 mt-8 md:mt-12">
             <div className="flex items-start gap-4 group">
-                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                    <Mail size={24} />
+                <div className="p-3 md:p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300 shrink-0">
+                    <Mail size={20} className="md:w-6 md:h-6" />
                 </div>
-                <div>
-                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Electronic Mail</h3>
-                    <a href="mailto:Afzals2004@gmail.com" className="text-xl text-white hover:text-cyan-300 transition-colors">Afzals2004@gmail.com</a>
+                <div className="overflow-hidden">
+                    <h3 className="text-xs md:text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Electronic Mail</h3>
+                    <a href="mailto:Afzals2004@gmail.com" className="text-lg md:text-xl text-white hover:text-cyan-300 transition-colors break-words">Afzals2004@gmail.com</a>
                 </div>
             </div>
 
             <div className="flex items-start gap-4 group">
-                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                    <Phone size={24} />
+                <div className="p-3 md:p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300 shrink-0">
+                    <Phone size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div>
-                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Comms Line</h3>
-                    <p className="text-xl text-white">+91 9967007042</p>
+                    <h3 className="text-xs md:text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Comms Line</h3>
+                    <p className="text-lg md:text-xl text-white">+91 9967007042</p>
                 </div>
             </div>
 
             <div className="flex items-start gap-4 group">
-                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                    <Linkedin size={24} />
+                <div className="p-3 md:p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300 shrink-0">
+                    <Linkedin size={20} className="md:w-6 md:h-6" />
                 </div>
-                <div>
-                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Professional Network</h3>
-                    <a href="https://linkedin.com/in/afzaldatanalyst" target="_blank" rel="noopener noreferrer" className="text-xl text-white hover:text-cyan-300 transition-colors">
+                <div className="overflow-hidden">
+                    <h3 className="text-xs md:text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Professional Network</h3>
+                    <a href="https://linkedin.com/in/afzaldatanalyst" target="_blank" rel="noopener noreferrer" className="text-lg md:text-xl text-white hover:text-cyan-300 transition-colors break-words block">
                         linkedin.com/in/afzaldatanalyst
                     </a>
                 </div>
             </div>
 
             <div className="flex items-start gap-4 group">
-                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                    <MapPin size={24} />
+                <div className="p-3 md:p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300 shrink-0">
+                    <MapPin size={20} className="md:w-6 md:h-6" />
                 </div>
                 <div>
-                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Base of Operations</h3>
-                    <p className="text-xl text-white">Mumbai, India 400072</p>
+                    <h3 className="text-xs md:text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Base of Operations</h3>
+                    <p className="text-lg md:text-xl text-white">Mumbai, India 400072</p>
                 </div>
             </div>
 
             <div className="flex items-start gap-4 group">
-                <div className="p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300">
-                    <Github size={24} />
+                <div className="p-3 md:p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300 shrink-0">
+                    <Github size={20} className="md:w-6 md:h-6" />
                 </div>
-                <div>
-                    <h3 className="text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Code Repository</h3>
-                    <a href="https://github.com/afzals2004-cmyk" target="_blank" rel="noopener noreferrer" className="text-xl text-white hover:text-cyan-300 transition-colors">
+                <div className="overflow-hidden">
+                    <h3 className="text-xs md:text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Code Repository</h3>
+                    <a href="https://github.com/afzals2004-cmyk" target="_blank" rel="noopener noreferrer" className="text-lg md:text-xl text-white hover:text-cyan-300 transition-colors break-words">
                         github.com/afzals2004-cmyk
                     </a>
                 </div>
@@ -120,14 +121,14 @@ const Contact = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="min-h-screen pt-32 pb-12 px-6 max-w-7xl mx-auto font-mono text-cyan-50"
+            className="min-h-screen pt-24 md:pt-32 pb-12 px-4 sm:px-6 max-w-7xl mx-auto font-mono text-cyan-50"
         >
             <SEO
                 title="Contact"
                 description="Get in touch with Afzal Shaikh for data science, automation, and web development collaborations."
             />
 
-            <div className="grid lg:grid-cols-2 gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 pb-8">
 
                 {/* Contact Info */}
                 <ContactInfo />
@@ -137,7 +138,7 @@ const Contact = () => {
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="holo-card p-8 rounded-2xl border border-cyan-500/20 bg-black/40"
+                    className="holo-card p-6 md:p-8 rounded-2xl border border-cyan-500/20 bg-black/40"
                 >
                     <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
                         <Send size={20} className="text-cyan-400" /> SEND_TRANSMISSION

@@ -26,11 +26,11 @@ const Navbar = memo(() => {
     return (
         <nav className={clsx(
             "fixed top-0 w-full z-50 transition-all duration-300",
-            scrolled ? "bg-white/80 backdrop-blur-md border-b border-gray-100 dark:bg-gray-950/80 dark:border-gray-800" : "bg-transparent"
+            scrolled ? "bg-[#050510]/80 backdrop-blur-xl border-b border-cyan-500/30 shadow-[0_0_15px_rgba(0,243,255,0.1)]" : "bg-transparent"
         )}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
-                    <Link to="/" className="flex items-center">
+                    <Link to="/" className="flex items-center group">
                         <Logo />
                     </Link>
 
@@ -41,11 +41,15 @@ const Navbar = memo(() => {
                                 key={link.name}
                                 to={link.path}
                                 className={clsx(
-                                    "text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400",
-                                    location.pathname === link.path ? "text-blue-600 dark:text-blue-400" : "text-gray-600 dark:text-gray-300"
+                                    "text-sm font-medium transition-all duration-300 hover:text-cyan-400 hover:drop-shadow-[0_0_5px_rgba(0,243,255,0.5)] relative group",
+                                    location.pathname === link.path ? "text-cyan-400 drop-shadow-[0_0_8px_rgba(0,243,255,0.6)]" : "text-gray-300"
                                 )}
                             >
                                 {link.name}
+                                <span className={clsx(
+                                    "absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-500 transition-all duration-300 group-hover:w-full",
+                                    location.pathname === link.path ? "w-full" : ""
+                                )}></span>
                             </Link>
                         ))}
                     </div>
