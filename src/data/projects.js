@@ -1,5 +1,16 @@
 export const projects = [
     {
+        id: 'medipredict-pro',
+        title: 'MediPredict Pro',
+        category: 'AI/ML',
+        description: 'Advanced AI-powered medical prediction system for early disease detection using machine learning models.',
+        challenge: 'Early disease detection is critical but often requires expensive medical tests and expert analysis.',
+        solution: 'Built a full-stack application with FastAPI backend, React frontend, and ML models (scikit-learn) to predict Diabetes, Heart Disease, and Parkinson\'s with high accuracy. Deployed on Render (backend) and Vercel (frontend) with PostgreSQL database.',
+        impact: 'Enables accessible, instant health risk assessments with interactive analytics dashboards and PDF report generation.',
+        tags: ['React', 'FastAPI', 'Machine Learning', 'PostgreSQL', 'Docker', 'Vercel', 'Render'],
+        link: 'https://medipredictpro.vercel.app/'
+    },
+    {
         id: 'monitor-bot',
         title: 'System Monitor Bot',
         category: 'Automation',
