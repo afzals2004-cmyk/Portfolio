@@ -23,23 +23,25 @@ const About = () => {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="holo-card p-6 rounded-lg relative overflow-hidden group"
+                        className="glass-card p-6 rounded-xl relative overflow-hidden group hover:shadow-[0_8px_40px_rgba(0,243,255,0.15)] transition-all duration-300"
                     >
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <Briefcase size={80} />
+                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-purple-500/0 group-hover:from-cyan-500/5 group-hover:to-purple-500/5 transition-all duration-500 pointer-events-none"></div>
+
+                        <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <Briefcase size={80} className="text-cyan-400" />
                         </div>
                         <div className="relative z-10">
                             <div className="flex justify-between items-start mb-2">
-                                <h3 className="text-xl font-bold text-white">{exp.title}</h3>
-                                <span className="text-xs font-mono py-1 px-2 border border-cyan-500/30 rounded text-cyan-300 bg-cyan-950/30">
+                                <h3 className="text-xl font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-300 group-hover:to-purple-300 group-hover:bg-clip-text transition-all duration-300">{exp.title}</h3>
+                                <span className="text-xs font-mono py-1 px-3 border border-cyan-500/40 rounded-md text-cyan-300 bg-gradient-to-r from-cyan-950/40 to-purple-950/40 backdrop-blur-sm">
                                     {exp.period}
                                 </span>
                             </div>
-                            <p className="text-cyan-500 font-medium mb-4">{exp.company}</p>
+                            <p className="text-cyan-400 font-medium mb-4">{exp.company}</p>
                             <ul className="space-y-2">
                                 {exp.description.map((item, i) => (
-                                    <li key={i} className="flex items-start gap-2 text-sm text-cyan-100/70">
-                                        <span className="mt-1.5 w-1.5 h-1.5 bg-cyan-500 rounded-full shadow-[0_0_5px_cyan]"></span>
+                                    <li key={i} className="flex items-start gap-2 text-sm text-cyan-100/70 group-hover:text-cyan-100/90 transition-colors">
+                                        <span className="mt-1.5 w-1.5 h-1.5 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full shadow-[0_0_8px_rgba(0,243,255,0.6)] animate-pulse"></span>
                                         {item}
                                     </li>
                                 ))}
@@ -62,21 +64,23 @@ const About = () => {
                         key={idx}
                         initial={{ opacity: 0, scale: 0.95 }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: idx * 0.1 }}
-                        className="bg-cyan-950/20 border border-cyan-900/50 p-4 rounded hover:border-cyan-500/50 transition-colors flex items-center gap-4 group"
+                        transition={{ delay: idx * 0.05 }}
+                        className="glass-card p-5 rounded-xl hover:shadow-[0_0_30px_rgba(0,243,255,0.2)] transition-all duration-300 flex items-center gap-4 group"
                     >
-                        <div className="p-2 bg-cyan-900/30 rounded text-cyan-400 group-hover:text-cyan-200 group-hover:shadow-[0_0_10px_cyan]">
-                            <skill.icon size={20} />
+                        <div className="p-3 bg-gradient-to-br from-cyan-900/40 to-purple-900/40 rounded-lg text-cyan-300 group-hover:text-cyan-100 group-hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all duration-300">
+                            <skill.icon size={22} className="group-hover:scale-110 transition-transform duration-300" />
                         </div>
-                        <div>
-                            <h4 className="font-bold text-sm text-white">{skill.name}</h4>
-                            <div className="w-full bg-cyan-950 h-1.5 mt-2 rounded-full overflow-hidden">
+                        <div className="flex-1">
+                            <h4 className="font-bold text-sm text-white mb-2 group-hover:text-cyan-300 transition-colors">{skill.name}</h4>
+                            <div className="w-full bg-gradient-to-r from-cyan-950 to-purple-950 h-2 rounded-full overflow-hidden border border-cyan-900/50">
                                 <motion.div
                                     initial={{ width: 0 }}
                                     whileInView={{ width: `${skill.level}%` }}
-                                    transition={{ duration: 1 }}
-                                    className="h-full bg-cyan-500 shadow-[0_0_8px_cyan]"
-                                />
+                                    transition={{ duration: 1.2, ease: "easeOut" }}
+                                    className="h-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 shadow-[0_0_12px_rgba(0,243,255,0.6)] relative"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                                </motion.div>
                             </div>
                         </div>
                     </motion.div>
@@ -134,13 +138,13 @@ const About = () => {
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-16 border-b border-cyan-900/50 pb-8"
+                className="mb-16 border-b border-gradient-to-r from-cyan-900/50 via-purple-900/50 to-pink-900/50 pb-8"
             >
-                <h1 className="text-5xl font-black tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600 holo-text">
+                <h1 className="text-5xl md:text-6xl font-black tracking-tighter mb-4 holo-text leading-tight">
                     PROFILE_DATA
                 </h1>
-                <p className="text-xl text-cyan-200/70 max-w-3xl leading-relaxed">
-                    Detail-oriented <span className="text-cyan-400">Data Analytics & Automation Intern</span> with hands-on experience in process automation, system monitoring, and dashboard creation. Turning raw data into scalable solutions.
+                <p className="text-xl text-cyan-200/80 max-w-3xl leading-relaxed">
+                    Detail-oriented <span className="text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text font-bold">Data Analytics & Automation Intern</span> with hands-on experience in process automation, system monitoring, and dashboard creation. Turning raw data into scalable solutions.
                 </p>
             </motion.div>
 

@@ -68,27 +68,51 @@ const Home = () => {
                         <div className="flex flex-col sm:flex-row gap-4">
                             <Link
                                 to="/work"
-                                className="px-8 py-3 bg-cyan-600 hover:bg-cyan-500 text-black font-bold tracking-widest uppercase skew-x-[-10deg] transition-all hover:shadow-[0_0_20px_rgba(0,243,255,0.6)] text-center"
+                                className="group relative px-8 py-4 bg-gradient-to-r from-cyan-600 to-purple-600 text-black font-bold tracking-widest uppercase overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,243,255,0.6),0_0_60px_rgba(139,92,246,0.4)] hover:scale-105 text-center rounded-sm"
                             >
-                                <span className="block skew-x-[10deg]">Initialize Projects</span>
+                                <span className="relative z-10 flex items-center justify-center gap-2">
+                                    Initialize Projects
+                                    <motion.span
+                                        initial={{ x: 0 }}
+                                        whileHover={{ x: 5 }}
+                                        transition={{ type: "spring", stiffness: 400 }}
+                                    >
+                                        →
+                                    </motion.span>
+                                </span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                             </Link>
 
                             <Link
                                 to="/contact"
-                                className="px-8 py-3 border border-cyan-500 text-cyan-400 font-bold tracking-widest uppercase skew-x-[-10deg] hover:bg-cyan-500/10 transition-all text-center"
+                                className="group relative px-8 py-4 border-2 border-cyan-500 text-cyan-300 font-bold tracking-widest uppercase overflow-hidden transition-all duration-300 hover:border-purple-500 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:scale-105 text-center rounded-sm"
                             >
-                                <span className="block skew-x-[10deg]">Transmit Signal</span>
+                                <span className="relative z-10 flex items-center justify-center gap-2">
+                                    Transmit Signal
+                                    <motion.span
+                                        animate={{ scale: [1, 1.2, 1] }}
+                                        transition={{ duration: 2, repeat: Infinity }}
+                                    >
+                                        ●
+                                    </motion.span>
+                                </span>
+                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-purple-600/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                             </Link>
                         </div>
                     </motion.div>
 
-                    {/* Holographic Stats Module - Real Resume Data */}
-                    <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-8 lg:mt-0">
+                    {/* Premium Stats Module - Real Resume Data */}
+                    <motion.div
+                        className="grid grid-cols-2 gap-3 sm:gap-4 mt-8 lg:mt-0"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                    >
                         <StatCard label="LIVE PROJECTS" value="04" icon={Database} delay={0.2} description="ENTERPRISE DEPLOYED" />
                         <StatCard label="CERTIFICATIONS" value="06" icon={Award} delay={0.3} description="PROFESSIONAL" />
                         <StatCard label="TECH STACK" value="10+" icon={Cpu} delay={0.4} description="LANGUAGES & TOOLS" />
                         <StatCard label="DOMAINS" value="03" icon={Layers} delay={0.5} description="WEB • DATA • AUTO" />
-                    </div>
+                    </motion.div>
                 </div>
 
 
@@ -108,30 +132,35 @@ const Home = () => {
                                 transition={{ delay: index * 0.1 }}
                             >
                                 <Link to={`/work/${project.id}`} className="block h-full group">
-                                    <div className="holo-card h-full p-6 hover:border-cyan-400 transition-colors">
-                                        <div className="flex justify-between items-start mb-4">
-                                            <div className="p-2 bg-cyan-900/30 rounded border border-cyan-500/30 text-cyan-400">
-                                                <Layers size={20} />
+                                    <div className="holo-card h-full p-6 relative overflow-hidden lift-3d">
+                                        {/* Gradient overlay on hover */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-cyan-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500 pointer-events-none"></div>
+
+                                        <div className="relative z-10">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <div className="p-2.5 bg-gradient-to-br from-cyan-900/40 to-purple-900/40 rounded-lg border border-cyan-500/40 text-cyan-300 group-hover:border-cyan-400 group-hover:shadow-[0_0_20px_rgba(0,243,255,0.3)] transition-all duration-300">
+                                                    <Layers size={20} className="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
+                                                </div>
+                                                <span className="text-[10px] font-bold text-cyan-400 uppercase border border-cyan-700/50 px-2 py-0.5 rounded bg-cyan-950/50 backdrop-blur-sm">{project.id.substring(0, 6)}</span>
                                             </div>
-                                            <span className="text-[10px] font-bold text-cyan-600 uppercase border border-cyan-800 px-1">{project.id.substring(0, 6)}</span>
-                                        </div>
 
-                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
-                                            {project.title}
-                                        </h3>
+                                            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-300 group-hover:to-purple-300 group-hover:bg-clip-text transition-all duration-300">
+                                                {project.title}
+                                            </h3>
 
-                                        <div className="h-px w-full bg-cyan-900/50 mb-3"></div>
+                                            <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent mb-3"></div>
 
-                                        <p className="text-sm text-cyan-200/60 mb-4 line-clamp-3 font-light">
-                                            {project.description}
-                                        </p>
+                                            <p className="text-sm text-cyan-200/70 mb-4 line-clamp-3 font-light leading-relaxed">
+                                                {project.description}
+                                            </p>
 
-                                        <div className="flex flex-wrap gap-2 mt-auto">
-                                            {project.tags.slice(0, 3).map(tag => (
-                                                <span key={tag} className="text-[10px] uppercase font-bold text-cyan-500 bg-cyan-950/50 px-2 py-1 border border-cyan-900/50">
-                                                    {tag}
-                                                </span>
-                                            ))}
+                                            <div className="flex flex-wrap gap-2 mt-auto">
+                                                {project.tags.slice(0, 3).map(tag => (
+                                                    <span key={tag} className="text-[10px] uppercase font-bold text-cyan-400 bg-gradient-to-r from-cyan-950/60 to-purple-950/60 px-2.5 py-1 rounded border border-cyan-800/50 group-hover:border-cyan-600/50 group-hover:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all duration-300">
+                                                        #{tag}
+                                                    </span>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </Link>

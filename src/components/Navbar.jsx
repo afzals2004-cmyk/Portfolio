@@ -25,8 +25,10 @@ const Navbar = memo(() => {
 
     return (
         <nav className={clsx(
-            "fixed top-0 w-full z-50 transition-all duration-300",
-            scrolled ? "bg-[#050510]/80 backdrop-blur-xl border-b border-cyan-500/30 shadow-[0_0_15px_rgba(0,243,255,0.1)]" : "bg-transparent"
+            "fixed top-0 w-full z-50 transition-all duration-500",
+            scrolled
+                ? "glass-card border-b border-cyan-500/30 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_60px_rgba(0,243,255,0.1)]"
+                : "bg-transparent border-b border-transparent"
         )}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
@@ -70,19 +72,19 @@ const Navbar = memo(() => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800 overflow-hidden"
+                        className="md:hidden glass-card border-t border-cyan-500/20 overflow-hidden"
                     >
-                        <div className="px-4 pt-2 pb-4 space-y-1">
+                        <div className="px-4 pt-2 pb-4 space-y-1 bg-gradient-to-b from-cyan-950/20 to-purple-950/10">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     to={link.path}
                                     onClick={() => setIsOpen(false)}
                                     className={clsx(
-                                        "block px-3 py-2 rounded-md text-base font-medium",
+                                        "block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300",
                                         location.pathname === link.path
-                                            ? "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
-                                            : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900"
+                                            ? "bg-gradient-to-r from-cyan-600/30 to-purple-600/30 text-cyan-300 border border-cyan-500/30 shadow-[0_0_15px_rgba(0,243,255,0.2)]"
+                                            : "text-gray-300 hover:bg-cyan-900/20 hover:text-cyan-400 border border-transparent hover:border-cyan-700/30"
                                     )}
                                 >
                                     {link.name}

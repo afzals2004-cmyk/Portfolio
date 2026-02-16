@@ -21,12 +21,12 @@ const ContactInfo = memo(() => (
 
         <div className="space-y-6 md:space-y-8 mt-8 md:mt-12">
             <div className="flex items-start gap-4 group">
-                <div className="p-3 md:p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-lg text-cyan-400 group-hover:shadow-[0_0_15px_cyan] transition-all duration-300 shrink-0">
-                    <Mail size={20} className="md:w-6 md:h-6" />
+                <div className="p-3 md:p-4 bg-gradient-to-br from-cyan-900/30 to-purple-900/30 border border-cyan-500/40 rounded-xl text-cyan-300 group-hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] group-hover:border-cyan-400 transition-all duration-300 shrink-0">
+                    <Mail size={20} className="md:w-6 md:h-6 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div className="overflow-hidden">
-                    <h3 className="text-xs md:text-sm font-bold text-cyan-600 uppercase tracking-wider mb-1">Electronic Mail</h3>
-                    <a href="mailto:Afzals2004@gmail.com" className="text-lg md:text-xl text-white hover:text-cyan-300 transition-colors break-words">Afzals2004@gmail.com</a>
+                    <h3 className="text-xs md:text-sm font-bold text-cyan-500 uppercase tracking-wider mb-1">Electronic Mail</h3>
+                    <a href="mailto:Afzals2004@gmail.com" className="text-lg md:text-xl text-white hover:text-transparent hover:bg-gradient-to-r hover:from-cyan-300 hover:to-purple-300 hover:bg-clip-text transition-all duration-300 break-words">Afzals2004@gmail.com</a>
                 </div>
             </div>
 
@@ -94,6 +94,27 @@ const Contact = () => {
         setStatus('sending');
 
         try {
+            // For local development, simulate a successful response
+            const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+            if (isDevelopment) {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Simulate successful response
+                console.log('📧 Demo Mode: Form submission received', formData);
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 5000);
+
+                // Log to console for demonstration
+                console.log('✅ In production, this would send emails to:');
+                console.log('   • Admin: Afzals2004@gmail.com');
+                console.log(`   • User: ${formData.email}`);
+                return;
+            }
+
+            // Production: Actual API call
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
@@ -102,16 +123,21 @@ const Contact = () => {
                 body: JSON.stringify(formData),
             });
 
+            const data = await response.json();
+
             if (response.ok) {
                 setStatus('success');
                 setFormData({ name: '', email: '', message: '' });
-                setTimeout(() => setStatus('idle'), 5000); // Reset status after 5 seconds
+                setTimeout(() => setStatus('idle'), 5000);
             } else {
+                console.error('API Error:', data);
                 setStatus('error');
+                setTimeout(() => setStatus('idle'), 5000);
             }
         } catch (error) {
             console.error('Error sending message:', error);
             setStatus('error');
+            setTimeout(() => setStatus('idle'), 5000);
         }
     };
 
@@ -153,7 +179,7 @@ const Contact = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full bg-cyan-950/30 border border-cyan-900 rounded p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_10px_rgba(0,243,255,0.2)] transition-all placeholder-cyan-800"
+                                className="w-full bg-gradient-to-r from-cyan-950/40 to-purple-950/40 border border-cyan-800 rounded-lg p-4 text-white focus:border-cyan-400 focus:outline-none focus:shadow-[0_0_20px_rgba(0,243,255,0.3),0_0_40px_rgba(139,92,246,0.2)] transition-all placeholder-cyan-700 backdrop-blur-sm"
                                 placeholder="NAME / ORG"
                             />
                         </div>
@@ -187,17 +213,48 @@ const Contact = () => {
                         <button
                             type="submit"
                             disabled={status === 'sending'}
-                            className={`w-full py-4 font-bold tracking-[0.2em] uppercase rounded transition-all shadow-[0_0_15px_rgba(0,243,255,0.4)] hover:shadow-[0_0_25px_rgba(0,243,255,0.6)] ${status === 'sending' ? 'bg-cyan-800 cursor-not-allowed text-gray-400' : 'bg-cyan-600 hover:bg-cyan-500 text-black'
+                            className={`group relative w-full py-4 font-bold tracking-[0.2em] uppercase rounded-lg transition-all duration-300 overflow-hidden ${status === 'sending'
+                                ? 'bg-gradient-to-r from-cyan-800 to-purple-800 cursor-not-allowed text-gray-400'
+                                : 'bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-black shadow-[0_0_25px_rgba(0,243,255,0.4),0_0_50px_rgba(139,92,246,0.3)] hover:shadow-[0_0_40px_rgba(0,243,255,0.6),0_0_80px_rgba(139,92,246,0.5)] hover:scale-[1.02]'
                                 }`}
                         >
-                            {status === 'sending' ? 'Transmitting...' : 'Transmit'}
+                            <span className="relative z-10">{status === 'sending' ? 'Transmitting...' : 'Transmit'}</span>
+                            {status !== 'sending' && (
+                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                            )}
                         </button>
 
                         {status === 'success' && (
-                            <p className="text-green-400 text-center font-bold mt-4">Transmission Successful. Data Sent.</p>
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="text-center mt-4 p-4 rounded-lg bg-gradient-to-r from-green-500/20 to-cyan-500/20 border border-green-500/30"
+                            >
+                                <p className="text-green-400 font-bold flex items-center justify-center gap-2">
+                                    <span className="text-2xl">✓</span>
+                                    Transmission Successful
+                                </p>
+                                <p className="text-green-300 text-sm mt-1">
+                                    {window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                                        ? '(Demo Mode: Check console for details)'
+                                        : 'Message sent successfully. Check your email for confirmation.'}
+                                </p>
+                            </motion.div>
                         )}
                         {status === 'error' && (
-                            <p className="text-red-400 text-center font-bold mt-4">Transmission Failed. Check Signal.</p>
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="text-center mt-4 p-4 rounded-lg bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30"
+                            >
+                                <p className="text-red-400 font-bold flex items-center justify-center gap-2">
+                                    <span className="text-2xl">✗</span>
+                                    Transmission Failed
+                                </p>
+                                <p className="text-red-300 text-sm mt-1">
+                                    Unable to send message. Please try again or contact directly via email.
+                                </p>
+                            </motion.div>
                         )}
                     </form>
                 </motion.div>

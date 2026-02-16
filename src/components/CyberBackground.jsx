@@ -36,6 +36,8 @@ const CyberBackground = () => {
                 this.size = Math.random() * (isMobile ? 1.5 : 2) + 1;
                 this.pulseSpeed = 0.02 + Math.random() * 0.03;
                 this.alpha = Math.random();
+                // Add color variation for gradient effect
+                this.hue = Math.random() * 60 + 180; // Range from cyan to purple
             }
 
             update() {
@@ -49,10 +51,17 @@ const CyberBackground = () => {
 
             draw() {
                 const opacity = Math.abs(Math.sin(this.alpha)) * 0.7 + 0.3; // Pulsing opacity
-                ctx.fillStyle = `rgba(0, 243, 255, ${opacity})`;
+                // Gradient color based on particle position
+                const r = Math.floor(Math.sin(this.hue * 0.01) * 127 + 128);
+                const g = Math.floor(Math.sin(this.hue * 0.01 + 2) * 127 + 128);
+                const b = Math.floor(Math.sin(this.hue * 0.01 + 4) * 127 + 128);
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.shadowBlur = 0;
             }
         }
 
@@ -79,12 +88,16 @@ const CyberBackground = () => {
             ctx.fillStyle = 'rgba(5, 5, 16, 0.25)'; // Clear darker for better contrast
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Matrix Rain Effect (Optimized)
-            ctx.fillStyle = 'rgba(0, 243, 255, 0.04)';
+            // Matrix Rain Effect (Enhanced with colors)
+            const matrixColors = ['rgba(0, 243, 255, 0.05)', 'rgba(139, 92, 246, 0.04)', 'rgba(236, 72, 153, 0.03)'];
             ctx.font = `${fontSize}px monospace`;
 
             for (let i = 0; i < matrixDrops.length; i++) {
                 if (Math.random() > 0.985) continue;
+
+                // Cycle through gradient colors
+                const colorIndex = Math.floor((i + pulseTime * 10) % 3);
+                ctx.fillStyle = matrixColors[colorIndex];
 
                 const text = String.fromCharCode(0x30A0 + Math.random() * 96);
                 ctx.fillText(text, i * fontSize, matrixDrops[i] * fontSize);
@@ -95,7 +108,7 @@ const CyberBackground = () => {
                 matrixDrops[i]++;
             }
 
-            // Connection Network (Foreground Layer)
+            // Connection Network (Enhanced with gradients)
             particles.forEach((particle, index) => {
                 particle.update();
                 particle.draw();
@@ -109,16 +122,17 @@ const CyberBackground = () => {
 
                     if (distSq < connectionDistanceSq) {
                         ctx.beginPath();
-                        // Dynamic gradient coloring for lines
-                        const alpha = (1 - distSq / connectionDistanceSq) * 0.2;
+                        // Dynamic gradient coloring for lines with more vibrant colors
+                        const alpha = (1 - distSq / connectionDistanceSq) * 0.25;
 
-                        // Subtle color shift
+                        // Multi-color gradient from cyan to purple to pink
                         const gradient = ctx.createLinearGradient(particle.x, particle.y, particles[j].x, particles[j].y);
                         gradient.addColorStop(0, `rgba(0, 243, 255, ${alpha})`);
-                        gradient.addColorStop(1, `rgba(0, 100, 255, ${alpha})`);
+                        gradient.addColorStop(0.5, `rgba(139, 92, 246, ${alpha * 0.8})`);
+                        gradient.addColorStop(1, `rgba(236, 72, 153, ${alpha * 0.6})`);
 
                         ctx.strokeStyle = gradient;
-                        ctx.lineWidth = 0.8;
+                        ctx.lineWidth = 1;
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
